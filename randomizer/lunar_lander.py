@@ -1,5 +1,4 @@
-import json
-import sys, math
+import math
 import numpy as np
 
 import Box2D
@@ -114,7 +113,7 @@ class LunarLanderRandomized(gym.Env, EzPickle):
 
         self.reset()
 
-    def _update_randomized_params(self):
+    def update_randomized_params(self):
         self.main_engine_power = self.dimensions[0].current_value
         if len(self.dimensions) == 2:
             self.side_engine_power = self.dimensions[1].current_value

@@ -1,18 +1,9 @@
-from importlib import import_module
-
 import gym
 import json
 import numpy as np
 
 import gym.spaces as spaces
-import os.path as osp
 
-from enum import Enum
-
-from lxml import etree
-import numpy as np
-
-from randomizer.assets import MODEL_PATH
 from randomizer.dimension import Dimension
 
 
@@ -26,7 +17,7 @@ class RandomizedEnvWrapper(gym.Wrapper):
         self.config_file = self.unwrapped.config_file
 
         self._load_randomization_dimensions(seed)
-        self.unwrapped._update_randomized_params()
+        self.unwrapped.update_randomized_params()
         self.randomized_default = ['random'] * len(self.unwrapped.dimensions)
 
     def _load_randomization_dimensions(self, seed):
@@ -50,9 +41,13 @@ class RandomizedEnvWrapper(gym.Wrapper):
         nrand = len(self.unwrapped.dimensions)
         self.unwrapped.randomization_space = spaces.Box(0, 1, shape=(nrand,), dtype=np.float32)
 
-    def randomize(self, randomized_values=-1):
-        """Creates a randomized environment, using the dimension and value specified 
-        to randomize over
+    def randomize(self, randomized_values):
+        """Sets the parameter values such that a call to`update_randomized_params()`
+        will generate an environment with those settings.
+
+        Passing a list of 'default' strings will give the default value
+        Passing a list of 'random' strings will give a purely random value for that dimension
+        Passing a list of -1 integers will have the same effect.
         """
         for dimension, randomized_value in enumerate(randomized_values):
             if randomized_value == 'default':
@@ -61,11 +56,11 @@ class RandomizedEnvWrapper(gym.Wrapper):
             elif randomized_value != 'random' and randomized_value != -1:
                 assert 0.0 <= randomized_value <= 1.0, "using incorrect: {}".format(randomized_value)
                 self.unwrapped.dimensions[dimension].current_value = \
-                    self.unwrapped.dimensions[dimension]._rescale(randomized_value)
+                    self.unwrapped.dimensions[dimension].rescale(randomized_value)
             else:  # random
                 self.unwrapped.dimensions[dimension].randomize()
 
-        self.unwrapped._update_randomized_params()
+        self.unwrapped.update_randomized_params()
 
     def step(self, action):
         return self.env.step(action)

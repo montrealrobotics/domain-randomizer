@@ -31,7 +31,7 @@ class PusherEnv3DofEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         self.object_body = self.root.find(".//body[@name='object']/geom")
         self.object_joints = self.root.findall(".//body[@name='object']/joint")
 
-    def _update_randomized_params(self):
+    def update_randomized_params(self):
         xml = self._create_xml()
         self._re_init(xml)
 

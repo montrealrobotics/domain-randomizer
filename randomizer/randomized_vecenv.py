@@ -5,14 +5,11 @@ import numpy as np
 from multiprocessing import Process, Pipe
 from baselines.common.vec_env import VecEnv, CloudpickleWrapper
 
-from common.envs.wrappers import RandomizedEnvWrapper
+from .wrappers import RandomizedEnvWrapper
 
 """File Description:
 Creates a vectorized environment with RandomizationEnvWrapper, which helps
 for fast / general Domain Randomization.
-The main thing to note here is unlike the OpenAI vectorized env,
-the step command does not automatically reset.
-
 We also provide simple helper functions to randomize environments
 """
 
@@ -24,7 +21,6 @@ def make_env(env_id, seed, rank):
         env = gym.make(env_id)
         env = RandomizedEnvWrapper(env, seed + rank)
         env.seed(seed + rank)
-
         return env
 
     return _thunk
@@ -63,7 +59,7 @@ def worker(remote, parent_remote, env_fn_wrapper):
             elif cmd == 'rescale_dimension':
                 dimension = data[0]
                 array = data[1]
-                rescaled = env.unwrapped.dimensions[dimension]._rescale(array)
+                rescaled = env.unwrapped.dimensions[dimension].rescale(array)
                 remote.send(rescaled)
             elif cmd == 'randomize':
                 randomized_val = data
@@ -89,8 +85,7 @@ class RandomizedSubprocVecEnv(VecEnv):
     Recommended to use when num_envs > 1 and step() can be a bottleneck.
     """
 
-    # TODO: arg spaces is no longer used. Remove?
-    def __init__(self, env_fns, spaces=None):
+    def __init__(self, env_fns):
         """
         Arguments:
 
@@ -132,7 +127,7 @@ class RandomizedSubprocVecEnv(VecEnv):
 
         for remote, val in zip(self.remotes, randomized_values):
             remote.send(('randomize', val))
-        results = [remote.recv() for remote in self.remotes]  # TODO: why creating the array if you're not gonna use it
+        results = [remote.recv() for remote in self.remotes]
         self.waiting = False
 
     def get_current_params(self):
