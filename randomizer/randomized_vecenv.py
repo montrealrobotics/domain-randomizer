@@ -23,9 +23,7 @@ def make_env(env_id, seed, rank):
     def _thunk():
         env = gym.make(env_id)
         env = RandomizedEnvWrapper(env, seed + rank)
-
         env.seed(seed + rank)
-        obs_shape = env.observation_space.shape  # TODO: is this something we can remove
 
         return env
 
@@ -47,6 +45,8 @@ def worker(remote, parent_remote, env_fn_wrapper):
             cmd, data = remote.recv()
             if cmd == 'step':
                 ob, reward, done, info = env.step(data)
+                if done:
+                    ob = env.reset()
                 remote.send((ob, reward, done, info))
             elif cmd == 'reset':
                 ob = env.reset()

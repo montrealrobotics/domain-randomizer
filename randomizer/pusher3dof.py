@@ -47,14 +47,12 @@ class PusherEnv3DofEnv(mujoco_env.MujocoEnv, utils.EzPickle):
             self.viewer.update_sim(self.sim)
 
     def _create_xml(self):
-        # TODO: I might speed this up, but I think is insignificant w.r.t to the model/sim creation...
         self._randomize_friction()
         self._randomize_damping()
         # self._randomize_size()
 
         return et.tostring(self.root, encoding='unicode', method='xml')
 
-    # TODO: I'm making an assumption here that 3 places after the comma are good enough, are they?
     def _randomize_friction(self):
         frictionloss = self.dimensions[0].current_value
 
@@ -80,7 +78,6 @@ class PusherEnv3DofEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         arm_dist = np.linalg.norm(self.get_body_com("object")[:2] - self.get_body_com("tips_arm")[:2])
         goal_dist = np.linalg.norm(self.get_body_com("object")[:2] - self.get_body_com("goal")[:2])
 
-        # Reward from Soft Q Learning
         action_cost = np.square(action).sum()
         reward = -0.1 * action_cost - goal_dist
 
@@ -100,14 +97,8 @@ class PusherEnv3DofEnv(mujoco_env.MujocoEnv, utils.EzPickle):
     def reset_model(self):
         qpos = self.np_random.uniform(low=-0.1, high=0.1, size=self.model.nq) + self.init_qpos
 
-        # Original
-        # object_ = np.random.uniform(low=[.3,-1.0], high=[1.2,-0.4])
-        # goal = np.random.uniform(low=[.8,-1.2], high=[1.2,-0.8])
-        
         while True:
-            # NOW RUNNING: "HARDER*"
             object_ = np.random.uniform(low=[.4,-1.0], high=[1.2,-0.5])
-            # object_ = np.random.uniform(low=[.5,-1.0], high=[1.2,-0.6])
             goal = np.random.uniform(low=[.8,-1.2], high=[1.2,-0.8])
             if np.linalg.norm(object_ - goal) > 0.45:
                 break

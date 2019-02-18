@@ -41,7 +41,6 @@ class RandomizedEnvWrapper(gym.Wrapper):
             self.unwrapped.dimensions.append(
                 Dimension(
                     default_value=dimension['default'],
-                    seed=seed,
                     multiplier_min=dimension['multiplier_min'],
                     multiplier_max=dimension['multiplier_max'],
                     name=dimension['name']
@@ -51,8 +50,6 @@ class RandomizedEnvWrapper(gym.Wrapper):
         nrand = len(self.unwrapped.dimensions)
         self.unwrapped.randomization_space = spaces.Box(0, 1, shape=(nrand,), dtype=np.float32)
 
-    # TODO: The default is not informative of the type of randomize_values
-    # TODO: The .randomize API is counter intuitive...
     def randomize(self, randomized_values=-1):
         """Creates a randomized environment, using the dimension and value specified 
         to randomize over
