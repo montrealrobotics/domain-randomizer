@@ -31,7 +31,7 @@ register(
 
 register(
     id='HumanoidRandomizedEnv-v0',
-    entry_point='common.envs.humanoid:HumanoidRandomizedEnv',
+    entry_point='randomizer.humanoid:HumanoidRandomizedEnv',
     max_episode_steps=1000,
     kwargs={
         'config': 'randomizer/config/HumanoidRandomized/default.json',
@@ -41,10 +41,20 @@ register(
 
 register(
     id='HalfCheetahRandomizedEnv-v0',
-    entry_point='common.envs.half_cheetah:HalfCheetahRandomizedEnv',
+    entry_point='randomizer.half_cheetah:HalfCheetahRandomizedEnv',
     max_episode_steps=1000,
     kwargs={
         'config': 'randomizer/config/HalfCheetahRandomized/default.json',
         'xml_name': 'half_cheetah.xml'
+    }
+)
+
+register(
+    id='FetchPushDefaultEnv-v0',
+    entry_point='randomizer.randomized_fetchpush:FetchPushRandomizedEnv',
+    max_episode_steps=1000,
+    kwargs={
+        'config': 'randomizer/config/FetchPushRandomized/default.json',
+        'xml_name': 'fetch/push.xml'
     }
 )
