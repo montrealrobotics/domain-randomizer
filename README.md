@@ -20,7 +20,7 @@ import gym
 
 from randomizer.wrappers import RandomizedEnvWrapper
 
-env = RandomizedEnvWrapper(gym.make('LunarLanderRandomized-v0'))
+env = RandomizedEnvWrapper(gym.make('LunarLanderRandomized-v0'), seed=123)
 env.randomize()
 
 # or, set a multiplier value in [0, 1] * config's default
