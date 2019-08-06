@@ -3,10 +3,17 @@
     "dimensions": [
       {
         "name": "damping",
-        "default": 0.01,
-        "multiplier_min": 1.0,
+        "default": 0.1,
+        "multiplier_min": 0.01,
         "multiplier_max": 1.0
-      }
+      },
+
+      {
+      "name": "friction",
+      "default": 0.18,
+      "multiplier_min": 0.01,
+      "multiplier_max": 1.0
+    }
     ]
   }
   
