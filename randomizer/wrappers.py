@@ -41,7 +41,7 @@ class RandomizedEnvWrapper(gym.Wrapper):
         nrand = len(self.unwrapped.dimensions)
         self.unwrapped.randomization_space = spaces.Box(0, 1, shape=(nrand,), dtype=np.float32)
 
-    def randomize(self, randomized_values):
+    def randomize(self, randomized_values=[-1]):
         """Sets the parameter values such that a call to`update_randomized_params()`
         will generate an environment with those settings.
 

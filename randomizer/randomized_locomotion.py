@@ -59,7 +59,7 @@ class RandomizedLocomotionEnv(mujoco_env.MujocoEnv, utils.EzPickle):
 
         return et.tostring(self.root, encoding='unicode', method='xml')
 
-    def _update_randomized_params(self):
+    def update_randomized_params(self):
         xml = self._create_xml()
         self._re_init(xml)
 

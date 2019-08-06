@@ -52,7 +52,8 @@ class RandomizedFetchEnv(robot_env.RobotEnv):
             initial_qpos=initial_qpos)
 
         # randomization
-        self.reference_path = os.path.join(os.path.dirname(robot_env.__file__), "assets", kwargs.get('xml_name'))
+        self.xml_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "assets", "fetch")
+        self.reference_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "assets", "fetch", kwargs.get('xml_name'))
         self.reference_xml = et.parse(self.reference_path)
         self.config_file = kwargs.get('config')
         self.dimensions = []
@@ -74,17 +75,23 @@ class RandomizedFetchEnv(robot_env.RobotEnv):
     def _create_xml(self):
         return et.tostring(self.root, encoding='unicode', method='xml')
 
-    def _update_randomized_params(self):
+    def update_randomized_params(self):
         xml = self._create_xml()
         self._re_init(xml)
 
     def _re_init(self, xml):
-        self.model = mujoco_py.load_model_from_xml(xml)
+        # TODO: Now, likely needs rank
+        randomized_path = os.path.join(self.xml_dir, "randomizedfetch.xml")
+        with open(randomized_path, 'wb') as fp:
+            fp.write(xml.encode())
+            fp.flush()
+        
+        self.model = mujoco_py.load_model_from_path(randomized_path)
         self.sim = mujoco_py.MjSim(self.model)
         self.data = self.sim.data
         self.init_qpos = self.data.qpos.ravel().copy()
         self.init_qvel = self.data.qvel.ravel().copy()
-        observation, _reward, done, _info = self.step(np.zeros(self.model.nu))
+        observation, _reward, done, _info = self.step(np.zeros(4))
         assert not done
         if self.viewer:
             self.viewer.update_sim(self.sim)

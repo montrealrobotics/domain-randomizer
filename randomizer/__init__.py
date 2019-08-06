@@ -50,11 +50,11 @@ register(
 )
 
 register(
-    id='FetchPushDefaultEnv-v0',
+    id='FetchPushRandomizedEnv-v0',
     entry_point='randomizer.randomized_fetchpush:FetchPushRandomizedEnv',
     max_episode_steps=1000,
     kwargs={
         'config': 'randomizer/config/FetchPushRandomized/default.json',
-        'xml_name': 'fetch/push.xml'
+        'xml_name': 'push.xml'
     }
 )
