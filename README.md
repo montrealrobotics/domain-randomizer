@@ -24,7 +24,7 @@ env = RandomizedEnvWrapper(gym.make('LunarLanderRandomized-v0'), seed=123)
 env.randomize()
 
 # or, set a multiplier value in [0, 1] * config's default
-env.randomize(0.6)
+env.randomize([0.6])
 env.reset()
 ```
 

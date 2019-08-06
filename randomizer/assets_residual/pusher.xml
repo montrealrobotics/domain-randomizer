@@ -1,0 +1,100 @@
+<mujoco model="arm3d">
+  <compiler angle="radian" coordinate="local" inertiafromgeom="true" />
+  <option gravity="0 0 0" integrator="Euler" iterations="20" timestep="0.01" />
+  
+  <default>
+    <joint armature="0.04" damping="1" limited="true" />
+    <geom conaffinity="0" condim="1" contype="0" density="300" friction=".8 .1 .1" margin="0.002" />
+  </default>
+  <asset>
+    <texture builtin="checker" height="256" rgb1="1 1 1" rgb2="1 1 1" type="skybox" width="256" />
+    <texture builtin="flat" height="1278" mark="cross" markrgb="1 1 1" name="texgeom" random="0.01" rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" type="cube" width="127" />
+    <texture builtin="checker" height="100" name="texplane" rgb1=".5 .5 .5" rgb2=".5 .5 .5" type="2d" width="100" />
+    <texture builtin="checker" height="100" name="texplane_show" rgb1="0 0 0" rgb2="0.9 0.9 0.9" type="2d" width="100" />
+    <material name="MatPlane" reflectance="0.5" shininess="1" specular="1" texrepeat="30 30" texture="texplane" />
+    <material name="geom" texture="texgeom" texuniform="true" />
+  </asset>
+
+  <worldbody>
+    <light diffuse=".5 .5 .5" dir="0 0 -1" pos="0 0 3" />
+    <geom conaffinity="1" contype="1" name="table" pos="0 0.5 -0.325" size="1 1 0.1" type="plane" />
+
+    <body name="r_shoulder_pan_link" pos="0 -0.6 0">
+      <geom name="e1" pos="-0.06 0.05 0.2" rgba="0.6 0.6 0.6 1" size="0.05" type="sphere" />
+      <geom name="e2" pos=" 0.06 0.05 0.2" rgba="0.6 0.6 0.6 1" size="0.05" type="sphere" />
+      <geom name="e1p" pos="-0.06 0.09 0.2" rgba="0.1 0.1 0.1 1" size="0.03" type="sphere" />
+      <geom name="e2p" pos=" 0.06 0.09 0.2" rgba="0.1 0.1 0.1 1" size="0.03" type="sphere" />
+      <geom fromto="0 0 -0.4 0 0 0.2" name="sp" size="0.1" type="capsule" />
+      
+      <joint axis="0 0 1" damping="1.0" name="r_shoulder_pan_joint" pos="0 0 0" range="-2.2854 2.0" type="hinge" />
+
+      <body name="r_shoulder_lift_link" pos="0.1 0 0">
+        <geom fromto="0 -0.1 0 0 0.1 0" name="sl" size="0.1" type="capsule" />
+        <joint axis="0 1 0" damping="1.0" name="r_shoulder_lift_joint" pos="0 0 0" range="-0.5236 1.3963" type="hinge" />
+
+        <body name="r_upper_arm_roll_link" pos="0 0 0">
+          <geom fromto="-0.1 0 0 0.1 0 0" name="uar" size="0.02" type="capsule" />
+          <joint axis="1 0 0" damping="0.1" name="r_upper_arm_roll_joint" pos="0 0 0" range="-1.5 1.7" type="hinge" />
+
+          <body name="r_upper_arm_link" pos="0 0 0">
+            <geom fromto="0 0 0 0.4 0 0" name="ua" size="0.06" type="capsule" />
+
+            <body name="r_elbow_flex_link" pos="0.4 0 0">
+              <geom fromto="0 -0.02 0 0.0 0.02 0" name="ef" size="0.06" type="capsule" />
+              <joint axis="0 1 0" damping="0.1" name="r_elbow_flex_joint" pos="0 0 0" range="-2.3213 0" type="hinge" />
+
+              <body name="r_forearm_roll_link" pos="0 0 0">
+                <geom fromto="-0.1 0 0 0.1 0 0" name="fr" size="0.02" type="capsule" />
+                <joint axis="1 0 0" damping=".1" limited="true" name="r_forearm_roll_joint" pos="0 0 0" range="-1.5 1.5" type="hinge" />
+
+                <body name="r_forearm_link" pos="0 0 0">
+                  <geom fromto="0 0 0 0.291 0 0" name="fa" size="0.05" type="capsule" />
+
+                  <body name="r_wrist_flex_link" pos="0.321 0 0">
+                    <geom fromto="0 -0.02 0 0 0.02 0" name="wf" size="0.01" type="capsule" />
+                    <joint axis="0 1 0" damping=".1" name="r_wrist_flex_joint" pos="0 0 0" range="-1.094 0" type="hinge" />
+
+                    <body name="r_wrist_roll_link" pos="0 0 0">
+                      <joint axis="1 0 0" damping="0.1" limited="true" name="r_wrist_roll_joint" pos="0 0 0" range="-1.5 1.5" type="hinge" />
+                      <body name="tips_arm" pos="0 0 0">
+                        <geom name="tip_arml" pos="0.1 -0.1 0." size="0.01" type="sphere" />
+                        <geom name="tip_armr" pos="0.1 0.1 0." size="0.01" type="sphere" />
+                      </body>
+                      <geom conaffinity="1" contype="1" fromto="0 -0.1 0. 0.0 +0.1 0" size="0.02" type="capsule" />
+                      <geom conaffinity="1" contype="1" fromto="0 -0.1 0. 0.1 -0.1 0" size="0.02" type="capsule" />
+                      <geom conaffinity="1" contype="1" fromto="0 +0.1 0. 0.1 +0.1 0." size="0.02" type="capsule" />
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+
+    
+    <body name="object" pos="0.45 -0.05 -0.275">
+      <geom conaffinity="0" density="0.00001" rgba="1 1 1 0" size="0.05 0.05 0.05" type="sphere" />
+      <geom conaffinity="0" contype="1" density="0.00001" rgba="1 1 1 1" size="0.05 0.05 0.05" type="cylinder" />
+      <joint axis="0 1 0" damping="0.5" name="obj_slidey" pos="0 0 0" range="-10.3213 10.3" type="slide" />
+      <joint axis="1 0 0" damping="0.5" name="obj_slidex" pos="0 0 0" range="-10.3213 10.3" type="slide" />
+    </body>
+
+    <body name="goal" pos="0.45 -0.05 -0.3230">
+      <geom conaffinity="0" contype="0" density="0.00001" rgba="1 0 0 1" size="0.08 0.001 0.1" type="cylinder" />
+      <joint axis="0 1 0" damping="0.5" name="goal_slidey" pos="0 0 0" range="-10.3213 10.3" type="slide" />
+      <joint axis="1 0 0" damping="0.5" name="goal_slidex" pos="0 0 0" range="-10.3213 10.3" type="slide" /> 
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor ctrllimited="true" ctrlrange="-2.0 2.0" joint="r_shoulder_pan_joint" />
+    <motor ctrllimited="true" ctrlrange="-2.0 2.0" joint="r_shoulder_lift_joint" />
+    <motor ctrllimited="true" ctrlrange="-2.0 2.0" joint="r_upper_arm_roll_joint" />
+    <motor ctrllimited="true" ctrlrange="-2.0 2.0" joint="r_elbow_flex_joint" />
+    <motor ctrllimited="true" ctrlrange="-2.0 2.0" joint="r_forearm_roll_joint" />
+    <motor ctrllimited="true" ctrlrange="-2.0 2.0" joint="r_wrist_flex_joint" />
+    <motor ctrllimited="true" ctrlrange="-2.0 2.0" joint="r_wrist_roll_joint" />
+  </actuator>
+</mujoco>
