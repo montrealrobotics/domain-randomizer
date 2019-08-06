@@ -73,6 +73,7 @@ class RandomizedFetchEnv(robot_env.RobotEnv):
             joint.set('damping', '{:3f}'.format(damping))
 
     def _create_xml(self):
+        self._randomize_damping()
         return et.tostring(self.root, encoding='unicode', method='xml')
 
     def update_randomized_params(self):
