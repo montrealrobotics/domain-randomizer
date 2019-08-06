@@ -81,7 +81,6 @@ class RandomizedResidualPushEnv(ResidualSlipperyPushEnv):
             self.fetch_env.env.sim.model.geom_friction[i] = [current_friction, 5.e-3, 1e-4]
 
     def _create_xml(self):
-        self._randomize_damping()
         self._randomize_friction()
         return et.tostring(self.root, encoding='unicode', method='xml')
 
