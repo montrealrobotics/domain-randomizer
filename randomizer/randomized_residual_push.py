@@ -8,7 +8,7 @@ from .residual_push import RandomizedResidualPushEnv
 # Ensure we get the path separator correct on windows
 MODEL_XML_PATH = os.path.join('fetch', 'push.xml')
 
-
+# RANDOMIZED RESIDUAL PUSH ENVIRONMENT
 class ResidualPushRandomizedEnv(RandomizedResidualPushEnv, utils.EzPickle):
     def __init__(self, reward_type='sparse', **kwargs):
         initial_qpos = {
