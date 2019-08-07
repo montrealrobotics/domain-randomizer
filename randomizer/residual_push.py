@@ -19,7 +19,7 @@ class RandomizedResidualPushEnv(ResidualSlipperyPushEnv):
     def __init__(
             self, model_path, n_substeps, gripper_extra_height, block_gripper,
             has_object, target_in_the_air, target_offset, obj_range, target_range,
-            distance_threshold, initial_qpos, reward_type, **kwargs,
+            distance_threshold, initial_qpos, reward_type, **kwargs
     ):
         """Initializes a new Fetch environment.
 
