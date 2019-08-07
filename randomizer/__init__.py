@@ -58,3 +58,21 @@ register(
         'xml_name': 'push.xml'
     }
 )
+register(
+    id='ResidualPushRandomizedEnv-v0',
+    entry_point='randomizer.randomized_residual_push:ResidualPushRandomizedEnv',
+    max_episode_steps=1000,
+    kwargs={
+        'config': 'randomizer/config/ResidualPushRandomized/random.json',
+        'xml_name': 'pusher.xml'
+    }
+)
+register(
+    id='ResidualPushDefaultEnv-v0',
+    entry_point='randomizer.randomized_residual_push:ResidualPushRandomizedEnv',
+    max_episode_steps=1000,
+    kwargs={
+        'config': 'randomizer/config/ResidualPushRandomized/default.json',
+        'xml_name': 'pusher.xml'
+    }
+)

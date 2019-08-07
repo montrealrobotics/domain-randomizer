@@ -61,6 +61,7 @@ class RandomizedResidualPushEnv(ResidualSlipperyPushEnv):
         self.dimensions = []
         self.dimension_map = []
         self.suffixes = []
+        self.reset()
         self._locate_randomize_parameters()
 
 
@@ -100,7 +101,7 @@ class RandomizedResidualPushEnv(ResidualSlipperyPushEnv):
         self.data = self.sim.data
         self.init_qpos = self.data.qpos.ravel().copy()
         self.init_qvel = self.data.qvel.ravel().copy()
-        self.reset()
+
         observation, _reward, done, _info = self.step(np.zeros(4))
         assert not done
         # if self.viewer:
