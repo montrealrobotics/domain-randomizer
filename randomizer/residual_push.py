@@ -87,7 +87,7 @@ class RandomizedResidualPushEnv(ResidualSlipperyPushEnv):
 
     def update_randomized_params(self):
         xml = self._create_xml()
-        self._re_init(xml)
+        # self._re_init(xml)
 
     def _re_init(self, xml):
         # TODO: Now, likely needs rank
