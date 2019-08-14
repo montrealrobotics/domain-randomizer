@@ -10,6 +10,8 @@ Within our library, you can find randomized-environment implementations for:
 * `Humanoid-v2`
 * `HalfCheetah-v2`
 * `FetchPush-v1`
+* `ResidualPushEnv-v0`
+* `ResidualPickAndPlaceEnv-v0`
 
 ## Usage
 
@@ -20,11 +22,16 @@ import gym
 
 from randomizer.wrappers import RandomizedEnvWrapper
 
-env = RandomizedEnvWrapper(gym.make('LunarLanderRandomized-v0'), seed=123)
+env = RandomizedEnvWrapper(gym.make('ResidualPickAndPlaceRandomizedEnv-v0'), seed=123)
 env.randomize()
 
-# or, set a multiplier value in [0, 1] * config's default
-env.randomize([0.6])
+'''
+List of the parameters that you wish to randomize.
+The elements in the list can either be a string ("default") or a number between 0 and 1. (refer below example) 
+Important Note : Please maintain the same order as in the corresponding .json file.
+''' 
+
+env.randomize(["default", 0.1])  
 env.reset()
 ```
 
