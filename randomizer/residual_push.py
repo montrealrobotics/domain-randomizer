@@ -3,7 +3,7 @@ import numpy as np
 
 import xml.etree.ElementTree as et
 
-from .residual_fetch_push_env import ResidualSlipperyPushEnv
+from .residual_envs.residual_fetch_push_env import ResidualSlipperyPushEnv
 from gym.envs.robotics import rotations, robot_env, utils
 import mujoco_py
 
@@ -53,8 +53,8 @@ class RandomizedResidualPushEnv(ResidualSlipperyPushEnv):
             initial_qpos=initial_qpos)
 
         # randomization
-        self.xml_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "assets_residual")
-        self.reference_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "assets_residual",
+        self.xml_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "assets", "fetch")
+        self.reference_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "assets", "fetch",
                                            kwargs.get('xml_name'))
         self.reference_xml = et.parse(self.reference_path)
         self.config_file = kwargs.get('config')

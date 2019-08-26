@@ -3,7 +3,7 @@ import numpy as np
 
 import xml.etree.ElementTree as et
 
-from .residual_fetch_pick_and_place_env import ResidualFetchPickAndPlaceEnv
+from .residual_envs.residual_fetch_pick_and_place_env import ResidualFetchPickAndPlaceEnv
 from gym.envs.robotics import rotations, robot_env, utils
 import mujoco_py
 

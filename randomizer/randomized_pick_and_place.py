@@ -1,7 +1,5 @@
 import os
-import numpy as np
 from gym import utils
-from gym.envs.mujoco import mujoco_env
 from .residual_pick_and_place import RandomizedResidualPickPlaceEnv
 
 MODEL_XML_PATH = os.path.join('fetch', 'pick_and_place.xml')
