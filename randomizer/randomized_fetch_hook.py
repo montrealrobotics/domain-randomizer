@@ -22,7 +22,7 @@ class RandomizedFetchHookEnv(fetch_env.FetchEnv, utils.EzPickle):
         }
 
         if xml_file is None:
-            xml_file = os.path.join(DIR_PATH, 'assets', 'hook.xml')
+            xml_file = os.path.join(DIR_PATH, 'assets_residual', 'hook.xml')
 
         self._goal_pos = np.array([1.65, 0.75, 0.42])
         self._object_xpos = np.array([1.8, 0.75])
@@ -36,7 +36,7 @@ class RandomizedFetchHookEnv(fetch_env.FetchEnv, utils.EzPickle):
         utils.EzPickle.__init__(self)
         # randomization
         self.xml_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "assets_residual")
-        self.reference_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "assets", kwargs.get('xml_name'))
+        self.reference_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "assets_residual", kwargs.get('xml_name'))
         self.reference_xml = et.parse(self.reference_path)
         self.config_file = kwargs.get('config')
         self.dimensions = []
@@ -51,7 +51,7 @@ class RandomizedFetchHookEnv(fetch_env.FetchEnv, utils.EzPickle):
 
     def _randomize_block_mass(self):
         mass = self.dimensions[0].current_value
-        self.block_mass.set('mass', '{:3f}'.format(mass))
+        self.block_mass[0].set('mass', '{:3f}'.format(mass))
 
     def _create_xml(self):
         self._randomize_block_mass()
@@ -63,17 +63,16 @@ class RandomizedFetchHookEnv(fetch_env.FetchEnv, utils.EzPickle):
 
     def _re_init(self, xml):
         # TODO: Now, likely needs rank
-        randomized_path = os.path.join(self.xml_dir, "randomizedfetchhook.xml")
+        randomized_path = os.path.join(self.xml_dir, "tmp.xml")
         with open(randomized_path, 'wb') as fp:
             fp.write(xml.encode())
             fp.flush()
-
         self.model = mujoco_py.load_model_from_path(randomized_path)
         self.sim = mujoco_py.MjSim(self.model)
         self.data = self.sim.data
         self.init_qpos = self.data.qpos.ravel().copy()
         self.init_qvel = self.data.qvel.ravel().copy()
-        observation, _reward, done, _info = self.step(np.zeros(4))
+        observation, _reward, done, _info = self.step(np.zeros((4)))
         assert not done
         if self.viewer:
             self.viewer.update_sim(self.sim)

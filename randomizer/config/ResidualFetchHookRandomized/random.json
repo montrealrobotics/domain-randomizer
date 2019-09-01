@@ -1,0 +1,12 @@
+{
+    "env": "FetchPushDefault-v0",
+    "dimensions": [
+      {
+        "name": "mass",
+        "default": 2,
+        "multiplier_min": 0.5,
+        "multiplier_max": 5
+      }
+    ]
+  }
+  

@@ -1,0 +1,18 @@
+{
+    "env": "FetchPushDefault-v0",
+    "dimensions": [
+      {
+        "name": "damping",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "friction",
+        "default": 0.18,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      }
+    ]
+  }
+  

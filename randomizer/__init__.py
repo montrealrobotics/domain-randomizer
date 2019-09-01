@@ -113,3 +113,22 @@ register(
         'xml_name': 'push.xml'
     }
 )
+
+register(
+    id='FetchHookRandomizedEnv-v0',
+    entry_point='randomizer.randomized_fetch_hook:RandomizedFetchHookEnv',
+    max_episode_steps=1000,
+    kwargs={
+        'config': 'randomizer/config/ResidualFetchHookRandomized/random.json',
+        'xml_name': 'hook.xml'
+    }
+)
+register(
+    id='FetchHookDefaultEnv-v0',
+    entry_point='randomizer.randomized_fetch_hook:RandomizedFetchHookEnv',
+    max_episode_steps=1000,
+    kwargs={
+        'config': 'randomizer/config/ResidualFetchHookRandomized/default.json',
+        'xml_name': 'hook.xml'
+    }
+)
