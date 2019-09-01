@@ -4,14 +4,14 @@ import numpy as np
 from randomizer.wrappers import RandomizedEnvWrapper
 import time
 
-env = RandomizedEnvWrapper(gym.make('ResidualMPCPushRandomizedEnv-v0'), seed=123)
-# env = RandomizedEnvWrapper(gym.make('HalfCheetahRandomizedEnv-v0'), seed=123)
-env.randomize(["default", 1])
+env = RandomizedEnvWrapper(gym.make('FetchPushRandomizedEnv-v0'), seed=123)
 obs = env.reset()
-# friction_ranges = [friction for friction in np.geomspace(0.05, 1, 10)]
-for _ in range(200):
-    obs, _, _, _ = env.step(env.action_space.sample())
-    time.sleep(0.05)
+action = np.array([0.1, 0.2, 0, 0.4])
+print(action)
+for i in range(2000):
+    obs, _, _, _ = env.step(action)
     env.render()
-    # env.randomize(["default", -1])
+    if i % 100 == 0:
+        env.randomize(["default"])
+        env.reset()
 
