@@ -3,9 +3,8 @@ import numpy as np
 
 import xml.etree.ElementTree as et
 
-from .residual_envs.residual_fetch_pick_and_place_env import ResidualFetchPickAndPlaceEnv
+from .residual_envs.residual_mpc_push_env import ResidualMPCPushEnv
 from gym.envs.robotics import rotations, robot_env, utils
-import mujoco_py
 
 
 def goal_distance(goal_a, goal_b):
@@ -13,7 +12,7 @@ def goal_distance(goal_a, goal_b):
     return np.linalg.norm(goal_a - goal_b, axis=-1)
 
 
-class RandomizedResidualPickPlaceEnv(ResidualFetchPickAndPlaceEnv):
+class RandomizedResidualMPCPushEnv(ResidualMPCPushEnv):
     """Superclass for all Fetch environments.
     """
 
@@ -38,6 +37,7 @@ class RandomizedResidualPickPlaceEnv(ResidualFetchPickAndPlaceEnv):
             initial_qpos (dict): a dictionary of joint names and values that define the initial configuration
             reward_type ('sparse' or 'dense'): the reward type, i.e. sparse or dense
         """
+
         self.gripper_extra_height = gripper_extra_height
         self.block_gripper = block_gripper
         self.has_object = has_object
@@ -48,7 +48,7 @@ class RandomizedResidualPickPlaceEnv(ResidualFetchPickAndPlaceEnv):
         self.distance_threshold = distance_threshold
         self.reward_type = reward_type
 
-        super(RandomizedResidualPickPlaceEnv, self).__init__(
+        super(RandomizedResidualMPCPushEnv, self).__init__(
             model_path=model_path, n_substeps=n_substeps, n_actions=4,
             initial_qpos=initial_qpos)
 
@@ -81,7 +81,6 @@ class RandomizedResidualPickPlaceEnv(ResidualFetchPickAndPlaceEnv):
             self.fetch_env.env.sim.model.geom_friction[i] = [current_friction, 5.e-3, 1e-4]
 
     def _create_xml(self):
-        # self._randomize_damping()
         self._randomize_friction()
         return et.tostring(self.root, encoding='unicode', method='xml')
 
@@ -249,5 +248,4 @@ class RandomizedResidualPickPlaceEnv(ResidualFetchPickAndPlaceEnv):
             self.height_offset = self.sim.data.get_site_xpos('object0')[2]
 
     def render(self, mode='human', width=500, height=500):
-        return super(RandomizedResidualPickPlaceEnv, self).render(mode)
-
+        return super(RandomizedResidualMPCPushEnv, self).render(mode)
