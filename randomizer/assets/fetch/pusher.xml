@@ -19,7 +19,7 @@
 		</body>
 		
 		<body name="object0" pos="0.025 0.025 0.025">
-			<joint damping="0.010000" name="object0:joint" type="free" />
+			<joint damping="0.01" name="object0:joint" type="free" />
 			<geom condim="3" mass="2" material="block_mat" name="object0" size="0.025 0.025 0.025" type="box" />
 			<site name="object0" pos="0 0 0" rgba="1 0 0 1" size="0.02 0.02 0.02" type="sphere" />
 		</body>

@@ -12,14 +12,7 @@ DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 class RandomizedFetchHookEnv(fetch_env.FetchEnv, utils.EzPickle):
-    def __init__(self, xml_file=None, **kwargs):
-        initial_qpos = {
-            'robot0:slide0': 0.405,
-            'robot0:slide1': 0.48,
-            'robot0:slide2': 0.0,
-            'object0:joint': [1.25, 0.53, 0.4, 1., 0., 0., 0.],
-            'hook:joint': [1.35, 0.35, 0.4, 1., 0., 0., 0.],
-        }
+    def __init__(self, initial_qpos, xml_file=None, **kwargs):
 
         if xml_file is None:
             xml_file = os.path.join(DIR_PATH, 'assets_residual', 'hook.xml')

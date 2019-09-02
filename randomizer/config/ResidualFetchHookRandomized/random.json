@@ -1,5 +1,5 @@
 {
-    "env": "FetchPushDefault-v0",
+    "env": "ResidualHookRandomizedEnv-v0",
     "dimensions": [
       {
         "name": "mass",

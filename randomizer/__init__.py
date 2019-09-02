@@ -132,3 +132,21 @@ register(
         'xml_name': 'hook.xml'
     }
 )
+register(
+    id='ResidualHookRandomizedEnv-v0',
+    entry_point='randomizer.randomized_residual_hook:ResidualFetchHookEnv',
+    max_episode_steps=1000,
+    kwargs={
+        'config': 'randomizer/config/ResidualFetchHookRandomized/random.json',
+        'xml_name': 'hook.xml'
+    }
+)
+register(
+    id='ResidualHookDefaultEnv-v0',
+    entry_point='randomizer.randomized_residual_hook:ResidualFetchHookEnv',
+    max_episode_steps=1000,
+    kwargs={
+        'config': 'randomizer/config/ResidualFetchHookRandomized/default.json',
+        'xml_name': 'hook.xml'
+    }
+)
