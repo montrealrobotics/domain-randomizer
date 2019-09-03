@@ -1,11 +1,23 @@
 {
-    "env": "ResidualHookDefaultEnv-v0",
+    "env": "ResidualHookRandomizedEnv-v0",
     "dimensions": [
       {
-        "name": "mass",
+        "name": "block_mass",
         "default": 2,
-        "multiplier_min": 0.5,
-        "multiplier_max": 5
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "hook_mass",
+        "default": 4,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "friction",
+        "default": 1,
+        "multiplier_min": 0.2777,
+        "multiplier_max": 2.222
       }
     ]
   }

@@ -150,3 +150,23 @@ register(
         'xml_name': 'hook.xml'
     }
 )
+
+register(
+    id='ResidualNoisyHookRandomizedEnv-v0',
+    entry_point='randomizer.randomized_residual_hook:TwoFrameResidualHookNoisyEnv',
+    max_episode_steps=100,
+    kwargs={
+        'config': 'randomizer/config/ResidualFetchHookRandomized/random.json',
+        'xml_name': 'hook.xml'
+    }
+)
+register(
+    id='ResidualNoisyHookDefaultEnv-v0',
+    entry_point='randomizer.randomized_residual_hook:TwoFrameResidualHookNoisyEnv',
+    max_episode_steps=100,
+    kwargs={
+        'config': 'randomizer/config/ResidualFetchHookRandomized/default.json',
+        'xml_name': 'hook.xml'
+    }
+)
+
