@@ -1,3 +1,5 @@
+import os
+
 import gym
 import json
 import numpy as np
@@ -14,7 +16,7 @@ class RandomizedEnvWrapper(gym.Wrapper):
 
     def __init__(self, env, seed):
         super(RandomizedEnvWrapper, self).__init__(env)
-        self.config_file = self.unwrapped.config_file
+        self.config_file = os.path.join(os.path.dirname(__file__), self.unwrapped.config_file)
 
         self._load_randomization_dimensions(seed)
         self.unwrapped.update_randomized_params()

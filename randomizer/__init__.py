@@ -5,28 +5,28 @@ register(
     id='LunarLanderDefault-v0',
     entry_point='randomizer.lunar_lander:LunarLanderRandomized',
     max_episode_steps=1000,
-    kwargs={'config': 'randomizer/config/LunarLanderRandomized/default.json'}
+    kwargs={'config': 'config/LunarLanderRandomized/default.json'}
 )
 
 register(
     id='LunarLanderRandomized-v0',
     entry_point='randomizer.lunar_lander:LunarLanderRandomized',
     max_episode_steps=1000,
-    kwargs={'config': 'randomizer/config/LunarLanderRandomized/random.json'}
+    kwargs={'config': 'config/LunarLanderRandomized/random.json'}
 )
 
 register(
     id='Pusher3DOFDefault-v0',
     entry_point='randomizer.pusher3dof:PusherEnv3DofEnv',
     max_episode_steps=100,
-    kwargs={'config': 'randomizer/config/Pusher3DOFRandomized/default.json'}
+    kwargs={'config': 'config/Pusher3DOFRandomized/default.json'}
 )
 
 register(
     id='Pusher3DOFRandomized-v0',
     entry_point='randomizer.pusher3dof:PusherEnv3DofEnv',
     max_episode_steps=100,
-    kwargs={'config': 'randomizer/config/Pusher3DOFRandomized/random.json'}
+    kwargs={'config': 'config/Pusher3DOFRandomized/random.json'}
 )
 
 register(

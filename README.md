@@ -31,7 +31,7 @@ The elements in the list can either be a string ("default") or a number between 
 Important Note : Please maintain the same order as in the corresponding .json file.
 ''' 
 
-env.randomize(["default", 0.1])  
+env.randomize([["default", 0.1]])
 env.reset()
 ```
 
