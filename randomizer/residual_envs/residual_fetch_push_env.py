@@ -52,7 +52,7 @@ class ResidualSlipperyPushEnv(gym.Env):
             # original image is upside-down, so flip it
             return data[::-1, :, :]
         elif mode == 'human':
-            self.fetch_env.env._get_viewer(mode=mode).render()
+            self.fetch_env.env._get_viewer().render()
 
         return self.fetch_env.render(*args, **kwargs)
 

@@ -80,7 +80,9 @@ class RandomizedResidualPushEnv(ResidualSlipperyPushEnv):
         current_friction = self.dimensions[1].current_value
         for i in range(len(self.fetch_env.env.sim.model.geom_friction)):
             self.fetch_env.env.sim.model.geom_friction[i] = [current_friction, 5.e-3, 1e-4]
-
+        object_methods = [method_name for method_name in dir(self.fetch_env.env.sim.model)
+                          ]
+        print(object_methods)
     def _create_xml(self):
         self._randomize_friction()
         return et.tostring(self.root, encoding='unicode', method='xml')
@@ -250,4 +252,5 @@ class RandomizedResidualPushEnv(ResidualSlipperyPushEnv):
             self.height_offset = self.sim.data.get_site_xpos('object0')[2]
 
     def render(self, mode='human', width=500, height=500):
-        return super(RandomizedResidualPushEnv, self).render(mode)
+
+        return super(RandomizedResidualPushEnv, self).render()

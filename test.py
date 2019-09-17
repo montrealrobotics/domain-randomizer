@@ -4,14 +4,13 @@ import numpy as np
 from randomizer.wrappers import RandomizedEnvWrapper
 import time
 
-env = RandomizedEnvWrapper(gym.make('FetchPushRandomizedEnv-v0'), seed=123)
+env = RandomizedEnvWrapper(gym.make('ResidualNoisyHookRandomizedEnv-v0'), seed=123)
+env.randomize([1, 1, 1])
 obs = env.reset()
-action = np.array([0.1, 0.2, 0, 0.4])
-print(action)
 for i in range(2000):
-    obs, _, _, _ = env.step(action)
+    obs, _, done, _ = env.step(np.zeros((4)))
     env.render()
     if i % 100 == 0:
-        env.randomize(["default"])
+        env.randomize([1, 1, 1])
         env.reset()
 

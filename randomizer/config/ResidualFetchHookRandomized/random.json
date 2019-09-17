@@ -1,11 +1,23 @@
 {
-    "env": "FetchPushDefault-v0",
+    "env": "ResidualHookRandomizedEnv-v0",
     "dimensions": [
       {
-        "name": "mass",
-        "default": 2,
-        "multiplier_min": 0.5,
-        "multiplier_max": 5
+        "name": "block_mass",
+        "default": 4,
+        "multiplier_min": 0.3,
+        "multiplier_max": 3
+      },
+      {
+        "name": "hook_mass",
+        "default": 4,
+        "multiplier_min": 0.6,
+        "multiplier_max": 4
+      },
+      {
+        "name": "friction",
+        "default": 1,
+        "multiplier_min": 0.8,
+        "multiplier_max": 2.3
       }
     ]
   }

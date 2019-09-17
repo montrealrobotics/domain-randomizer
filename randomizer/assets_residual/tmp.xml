@@ -1,0 +1,41 @@
+<mujoco>
+    <compiler angle="radian" coordinate="local" meshdir="stls" texturedir="textures" />
+    <option timestep="0.002">
+        <flag warmstart="enable" />
+    </option>
+
+    <include file="shared.xml" />
+    
+    <worldbody>
+        <geom condim="3" material="floor_mat" name="floor0" pos="1.42 0.75 0" size="1.0 0.7 1" type="plane" />
+        <body name="floor0" pos="1.42 0.75 0">
+            <site name="target0" pos="0 0 0.5" rgba="1 0 0 1" size="0.02 0.02 0.02" type="sphere" />
+        </body>
+
+        <include file="robot.xml" />
+        
+        <body name="table0" pos="1.65 0.75 0.2">
+            <geom mass="2000" material="table_mat" size="0.5 0.45 0.2" type="box" />
+        </body>
+        
+        <body name="object0" pos="0.025 0.025 0.025">
+            <joint damping="0.01" name="object0:joint" type="free" />
+            <geom condim="3" mass="2" material="block_mat" name="object0" size="0.025 0.025 0.025" type="box" />
+            <site name="object0" pos="0 0 0" rgba="1 0 0 1" size="0.02 0.02 0.02" type="sphere" />
+        </body>
+
+        <body name="hook" pos="1.0 0.025 0.025">
+            <joint damping="0.01" name="hook:joint" type="free" />
+            <geom condim="3" mass="2.000000" material="block_mat" name="hook_base" size="0.4 0.015 0.015" type="box" />
+            <geom condim="3" mass="2" material="block_mat" name="hook_head" pos="0.4 0.085 0." size="0.015 0.1 0.015" type="box" />
+            <site name="hook" pos="-0.25 0 0" rgba="1 0 0 1" size="0.002 0.002 0.002" type="sphere" />
+        </body>
+
+        <light ambient="0.2 0.2 0.2" castshadow="false" diffuse="0.8 0.8 0.8" dir="0 0 -1" directional="true" name="light0" pos="0 0 4" specular="0.3 0.3 0.3" />
+    </worldbody>
+
+    <actuator>
+        <position ctrllimited="true" ctrlrange="0 0.2" joint="robot0:l_gripper_finger_joint" kp="30000" name="robot0:l_gripper_finger_joint" user="1" />
+        <position ctrllimited="true" ctrlrange="0 0.2" joint="robot0:r_gripper_finger_joint" kp="30000" name="robot0:r_gripper_finger_joint" user="1" />
+    </actuator>
+</mujoco>
